@@ -1,7 +1,7 @@
-export type GoodType = {
+export type GoodsType = {
   id: string,
   name: string,
   count: number,
 }
 
-export type GoodsType = GoodType[]
+export type GoodsListType = GoodsType[]

@@ -1,15 +1,15 @@
 <script setup lang='ts'>
 import { ref, computed } from 'vue'
 import Dialog from '@/components/Dialog.vue'
-import { GoodType, GoodsType } from '@/types';
+import { GoodsType, GoodsListType } from '@/types';
 
 const dialogRefGoods = ref()
 
-const goodsList = ref<GoodsType>([])
+const goodsList = ref<GoodsListType>([])
 
-const addGood = (good: GoodType) => {
+const addGood = (good: GoodsType) => {
   let js = 0;
-  goodsList.value.forEach((item: GoodType) => {
+  goodsList.value.forEach((item: GoodsType) => {
     if (item.id === good.id) {
       item.count = item.count + good.count;
       js++;
@@ -18,7 +18,7 @@ const addGood = (good: GoodType) => {
   if (good.count <= 0) {
     return
   }
-  goodsList.value.forEach((item: GoodType, index: number) => {
+  goodsList.value.forEach((item: GoodsType, index: number) => {
     if (item.id === good.id) {
       const rmGood = goodsList.value.splice(index, 1)
       goodsList.value.unshift(rmGood[0])
@@ -29,9 +29,9 @@ const addGood = (good: GoodType) => {
   }
 }
 
-const remove = (good: GoodType) => {
+const remove = (good: GoodsType) => {
   if (goodsList.value.length <= 1) return alert("至少保留一个商品")
-  goodsList.value = goodsList.value.filter((item: GoodType) => {
+  goodsList.value = goodsList.value.filter((item: GoodsType) => {
     return item.id !== good.id
   })
 }
@@ -44,21 +44,21 @@ const total = computed(() => {
 </script>
 
 <template>
-  <div class="goods">
+  <div class="goods-list">
     <div class="container">
       <table>
         <thead>
           <tr>
-            <th>商品</th>
+            <th>商品名称</th>
             <th>数量</th>
             <th>操作</th>
           </tr>
         </thead>
         <tbody>
-          <tr class="good" v-for="good in goodsList" :key="good.id">
+          <tr class="goods-item" v-for="good in goodsList" :key="good.id">
             <td class="name">
               <div class="box">
-                <i>{{ good.name }}</i><span @click="dialogRefGoods.dialogRef.showModal(good)">...</span>
+                <i>{{ good.name }}</i><span @click="dialogRefGoods.dialogRef.show()">...</span>
               </div>
             </td>
             <td>
@@ -83,7 +83,7 @@ const total = computed(() => {
 </template>
 
 <style lang='scss' scoped>
-.goods {
+.goods-list {
   padding: 20px;
   .container {
     table {

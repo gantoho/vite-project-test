@@ -1,6 +1,6 @@
-import type { GoodsType } from "@/types/index";
+import type { GoodsListType } from "@/types/index";
 
-const goodsSelectList: GoodsType = [
+const goodsSelectList: GoodsListType = [
   {
     id: "0",
     name: "键盘",
